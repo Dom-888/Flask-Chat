@@ -26,7 +26,7 @@ def index():
 # La funzione finale che appare sullo schermo
 @app.route('/<username>') 
 def user(username):
-    return "<h1>Hi {0}</h1>{1}".format(username, messages)
+    return render_template("chat.html", username = username, chat_messages = messages)
 
 # Prende l'input dell'utente e lo inserisce nella lista tramite add_message, poi rinfresca la pagina
 @app.route('/<username>/<message>') # Il testo all'interno delle <> viene passato come argomento nella funzione decorata
