@@ -9,15 +9,35 @@
 <body>
 
     <h1>Welcome, {{ username }}</h1>
+
+    <form action="POST">
+        <textarea name="message" id="message" cols="50" rows="4"></textarea>
+        <br>
+        <button>Send message</button>
+    </form>
+
     {% for message in chat_messages %}
         <p>({{ message.timestamp }}) {{ message.from }}: {{ message.message }}</p>
     {% endfor %}
 
     <!-- Per un singolo script non vale la pena di creare un file js -->
-    <script> 
-        let timer=setTimeout(function() {
-            location.reload()
+    <script>
+        let textbox = document.getElementById("message")
+    
+        let timer = setTimeout(function() {
+            location.reload();
         }, 5000)
+        
+        textbox.onkeydown = function(e) {
+            
+            clearTimeout(timer)
+            
+            timer = setTimeout(function() {
+                location.reload();
+            }, 5000)
+            
+        }
+        
     </script>
     
 </body>

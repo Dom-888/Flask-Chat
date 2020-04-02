@@ -24,8 +24,14 @@ def index():
     return render_template("index.html")
 
 # La funzione finale che appare sullo schermo
-@app.route('/<username>') 
+@app.route('/<username>', methods = ["GET", "POST"]) 
 def user(username):
+    if request.method == "POST":
+        username = session["username"]
+        message = request.form["message"]
+        add_messages(username, message)
+        return redirect(session["username"])
+
     return render_template("chat.html", username = username, chat_messages = messages)
 
 # Prende l'input dell'utente e lo inserisce nella lista tramite add_message, poi rinfresca la pagina
