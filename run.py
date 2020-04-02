@@ -1,5 +1,6 @@
 import os
-from flask import Flask, redirect
+from datetime import datetime
+from flask import Flask, redirect, render_template
 
 app = Flask(__name__)
 
@@ -8,7 +9,8 @@ messages = []
 
 # Chiamata da send_message
 def add_message(username, message):
-    messages.append("{}: {}".format(username, message))
+    now = datetime.now().strftime("%H:%M:%S")
+    messages.append("({}) {}: {}".format(now, username, message))
 
 # Chiamata da user
 def get_all_messages():
@@ -17,7 +19,7 @@ def get_all_messages():
 # Appare atterrando nel sito
 @app.route('/')
 def index():
-    return "To send a message use /USERNAME/MESSAGE"
+    return render_template("index.html")
 
 # La funzione finale che appare sullo schermo
 @app.route('/<username>') 
